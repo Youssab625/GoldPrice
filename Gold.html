@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EgyGold by Youssab</title>
+</head>
+<style>
+  /* style.css */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+/* Media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+  }
+}
+</style>
+<body>
+  <div class="container">
+    <h1>Gold Prices (10k - 24k)</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Karat</th>
+          <th>Price (Selling)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10k</td>
+          <td id="tenk">$ -</td>
+        </tr>
+        <tr>
+          <td>14k</td>
+          <td  id="fortk">$ -</td>
+        </tr>
+        <tr>
+          <td>18k</td>
+          <td  id="eightk">$ -</td>
+        </tr>
+        <tr>
+          <td>21k</td>
+          <td  id="twentonek">$ -</td>
+        </tr>
+        <tr>
+          <td>24k</td>
+          <td  id="twentyfour">$ -</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  let tenk = document.querySelector('#tenk')
+  let fortk = document.querySelector('#fortk')
+  let eightk = document.querySelector('#eightk')
+  let twentonek = document.querySelector('#twentonek')
+  let twentyfour = document.querySelector('#twentyfour')
+var myHeaders = new Headers();
+myHeaders.append("x-access-token", "goldapi-b6lerlkd0r0kc-io");
+myHeaders.append("Content-Type", "application/json");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://www.goldapi.io/api/XAU/EGP", requestOptions)
+  .then(response => response.json())
+  .then((result) => {
+    console.log(result)
+    tenk.innerHTML = result.price_gram_10k + ' EGP';
+    fortk.innerHTML = result.price_gram_14k + ' EGP';
+    eightk.innerHTML = result.price_gram_18k + ' EGP';
+    twentonek.innerHTML = result.price_gram_21k + ' EGP';
+    twentyfour.innerHTML = result.price_gram_24k + ' EGP';
+  })
+  .catch(error => console.log('error', error));
+</script>
+</html>
